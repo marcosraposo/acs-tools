@@ -1,0 +1,105 @@
+{
+    "policies": [
+        {
+            "id": "b2996c2b-6f0f-44af-98f1-24c881b8ad91",
+            "name": "Block unknown registries",
+            "description": "Esta política foi implementada para garantir maior segurança no ambiente, promovendo o bloqueio de registries não autorizados pela CASSI. Ao restringir o acesso apenas a registries previamente aprovados, buscamos prevenir o uso de imagens não confiáveis, reduzir vulnerabilidades, mitigar riscos de ataques cibernéticos e assegurar a conformidade com os padrões internos de segurança da informação. Essa prática fortalece a proteção do ambiente corporativo e contribui para a integridade e confiabilidade das operações.",
+            "rationale": "Uma política de bloqueio de registries não autorizados existe para proteger o ambiente corporativo contra ameaças de segurança e garantir a conformidade com os padrões estabelecidos pela organização. Registries são repositórios que armazenam imagens de contêineres, e o uso de fontes não autorizadas pode introduzir vulnerabilidades, como malware, configurações inseguras ou software desatualizado.\n\nAo implementar essa política, a organização limita o acesso a registries confiáveis e previamente validados, reduzindo o risco de incidentes de segurança, como invasões, roubo de dados ou interrupções operacionais. Além disso, essa medida assegura que todas as imagens utilizadas estejam alinhadas com os requisitos internos de qualidade, desempenho e compliance, fortalecendo a postura de segurança e integridade do ambiente tecnológico.",
+            "remediation": "Recomendamos que você entre em contato com o time de segurança para obter a lista atualizada de registries autorizados pela CASSI. Essa consulta é essencial para garantir a conformidade com as políticas de segurança e evitar o uso de fontes não aprovadas, que podem comprometer a integridade e a segurança do ambiente corporativo.",
+            "disabled": false,
+            "categories": [
+                "Vulnerability Management",
+                "Cassi"
+            ],
+            "lifecycleStages": [
+                "BUILD",
+                "DEPLOY"
+            ],
+            "eventSource": "NOT_APPLICABLE",
+            "exclusions": [
+                {
+                    "name": "",
+                    "deployment": {
+                        "name": "",
+                        "scope": {
+                            "cluster": "",
+                            "namespace": "^kube.*|^openshift.*|^redhat.*|^istio.*|^rhacs-operator.*|^stackrox.*",
+                            "label": null
+                        }
+                    },
+                    "image": null,
+                    "expiration": null
+                }
+            ],
+            "scope": [
+                {"cluster": "3fee7bc8-57a3-4b7a-b56f-144b4181ff93","namespace": "","label": null},
+                {"cluster": "d4788638-a935-457d-826d-6fe6ebf7fdab","namespace": "","label": null},
+                {"cluster": "dc2d5f6a-df88-4799-96a4-18680cba95cf","namespace": "","label": null},
+                {"cluster": "db3950eb-bd15-477d-87c2-983370e932b4","namespace": "","label": null},
+                {"cluster": "1eabdff9-e0a6-43eb-8170-376fe7fc6252","namespace": "","label": null}
+            ],
+            "severity": "CRITICAL_SEVERITY",
+            "enforcementActions": [],
+            "notifiers": [
+                "6fba967b-b988-4a7e-a1c4-b324ece4408b",
+                "086b31cd-ddb5-4d9a-879f-e92b05dd71a8",
+                "a9c588fe-ec1a-4f4e-b4e1-77d0a5f36750",
+                "bf93bf14-35c6-42b0-9645-935e0fb5f6bb"
+            ],
+            "lastUpdated": null,
+            "SORTName": "",
+            "SORTLifecycleStage": "",
+            "SORTEnforcement": false,
+            "policyVersion": "1.1",
+            "policySections": [
+                {
+                    "sectionName": "Registry unknown",
+                    "policyGroups": [
+                        {
+                            "fieldName": "Image Registry",
+                            "booleanOperator": "OR",
+                            "negate": true,
+                            "values": [
+                                {"value": "quay.io"},
+                                {"value": "nexus-docker.cassi.com.br"},
+                                {"value": "registry-quay-image.apps.gmt.cassi.com.br"},
+                                {"value": "image-registry.openshift-image-registry.svc:5000"},
+                                {"value": "registry.connet.redhat.com"},
+                                {"value": "wrm20770.live.dynatrace.com"},
+                                {"value": "ays70047.live.dynatrace.com"},                                
+                                {"value": "registry.redhat.io"}
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "sectionName": "You cant use tag latest",
+                    "policyGroups": [
+                        {
+                            "fieldName": "Image Tag",
+                            "booleanOperator": "OR",
+                            "negate": false,
+                            "values": [
+                                {"value": "latest"}
+                            ]
+                        }
+                    ]
+                }                
+            ],
+            "mitreAttackVectors": [
+                {
+                    "tactic": "TA0042",
+                    "techniques": [
+                        "T1588.006",
+                        "T1587.004",
+                        "T1587.001"
+                    ]
+                }
+            ],
+            "criteriaLocked": false,
+            "mitreVectorsLocked": false,
+            "isDefault": false,
+            "source": "IMPERATIVE"
+        }
+    ]
+}

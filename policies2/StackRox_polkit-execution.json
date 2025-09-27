@@ -1,0 +1,74 @@
+{
+    "policies": [
+        {
+            "name": "Polkit Execution Detected",
+            "description": "Detects execution of the pkexec binary in a container",
+            "rationale": "Polkit can be abused by attackers to elevate privileges within a container.",
+            "remediation": "Use your package manager's \"remove\" command to remove polkit packages from the image build for production containers.",
+            "disabled": false,
+            "categories": [
+                "Security Best Practices",
+                "Cassi"
+            ],
+            "lifecycleStages": [
+                "RUNTIME"
+            ],
+            "eventSource": "DEPLOYMENT_EVENT",
+            "exclusions": [
+                {
+                    "name": "",
+                    "deployment": {
+                        "name": "",
+                        "scope": {
+                            "cluster": "",
+                            "namespace": "^kube.*|^openshift.*|^redhat.*|^istio.*|^rhacs-operator.*|^stackrox.*",
+                            "label": null
+                        }
+                    },
+                    "image": null,
+                    "expiration": null
+                }                
+            ],
+            "scope": [
+                {"cluster": "3fee7bc8-57a3-4b7a-b56f-144b4181ff93","namespace": "","label": null},
+                {"cluster": "d4788638-a935-457d-826d-6fe6ebf7fdab","namespace": "","label": null},
+                {"cluster": "dc2d5f6a-df88-4799-96a4-18680cba95cf","namespace": "","label": null},
+                {"cluster": "db3950eb-bd15-477d-87c2-983370e932b4","namespace": "","label": null},
+                {"cluster": "1eabdff9-e0a6-43eb-8170-376fe7fc6252","namespace": "","label": null}
+            ],
+            "severity": "MEDIUM_SEVERITY",
+            "enforcementActions": [],
+            "notifiers": [
+                "6fba967b-b988-4a7e-a1c4-b324ece4408b",
+                "086b31cd-ddb5-4d9a-879f-e92b05dd71a8",
+                "a9c588fe-ec1a-4f4e-b4e1-77d0a5f36750",
+                "bf93bf14-35c6-42b0-9645-935e0fb5f6bb"
+            ],
+            "SORTName": "Polkit Execution Detected",
+            "SORTLifecycleStage": "RUNTIME",
+            "SORTEnforcement": false,
+            "policyVersion": "1.1",
+            "policySections": [
+                {
+                    "sectionName": "",
+                    "policyGroups": [
+                        {
+                            "fieldName": "Process Name",
+                            "booleanOperator": "OR",
+                            "negate": false,
+                            "values": [
+                                {
+                                    "value": "pkexec"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "mitreAttackVectors": [],
+            "criteriaLocked": true,
+            "mitreVectorsLocked": true,
+            "isDefault": false
+        }
+    ]
+}
