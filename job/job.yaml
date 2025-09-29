@@ -1,0 +1,35 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: roxctl-sync-policies
+  namespace: stackrox # O namespace onde o ACS está instalado
+spec:
+  template:
+    metadata:
+      labels:
+        app: roxctl-sync
+    spec:
+      containers:
+      - name: roxctl-sync-container
+        image: quay.io/rh-ee-malima/acs-roxctl # Sua imagem personalizada
+        imagePullPolicy: Always
+        env:
+          - name: GIT_REPO_URL
+            value: "https://github.com/marcosraposo/acs-tools.git"
+          # Variáveis de ambiente para o roxctl
+          - name: ROX_ENDPOINT
+            value: "central-stackrox.apps.malima.rhbr-lab.com" 
+          - name: ROX_CENTRAL_ADDRESS
+            value: "central.stackrox.svc:443" # Endereço interno do Central
+          - name: ROX_API_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: rox-token-secret
+                key: apiToken
+          - name: ROX_ADMIN_PASSWD
+            valueFrom:
+              secretKeyRef:
+                name: rox-admin-passwd
+                key: rox-admin                
+      restartPolicy: OnFailure
+  backoffLimit: 4
