@@ -7,7 +7,7 @@
           "remediation": "Known vulnerabilities make it easier for adversaries to exploit your application. You can fix these high-severity vulnerabilities by updating to a newer version of the affected component(s).",
           "disabled": false,
           "categories": [
-              "Cassi",
+              "atipe",
               "Vulnerability Management"
           ],
           "lifecycleStages": [
