@@ -1,0 +1,72 @@
+kind: SecurityPolicy
+apiVersion: config.stackrox.io/v1alpha1
+metadata:
+  name: process-with-uid-0-in-runtime
+spec:
+  policyName: Process with UID 0 In RUNTIME
+  description: Alert on deployments that contain processes running with UID 0
+  rationale: "Processes that are running with UID 0 run as the root user. This can\
+    \ allow for unintended privilege escalation if a container mounts host directories\
+    \ that are owned by the host's root user\n\nAo implementar essa pol\xEDtica, a\
+    \ organiza\xE7\xE3o limita o acesso a registries confi\xE1veis e previamente validados,\
+    \ reduzindo o risco de incidentes de seguran\xE7a, como invas\xF5es, roubo de\
+    \ dados ou interrup\xE7\xF5es operacionais. Al\xE9m disso, essa medida assegura\
+    \ que todas as imagens utilizadas estejam alinhadas com os requisitos internos\
+    \ de qualidade, desempenho e compliance, fortalecendo a postura de seguran\xE7\
+    a e integridade do ambiente tecnol\xF3gico."
+  remediation: Specify the USER instruction in the Docker image or the runAsUser field
+    within the Pod Security Context
+  categories:
+  - Cassi
+  - Vulnerability Management
+  disabled: false
+  lifecycleStages:
+  - RUNTIME
+  eventSource: DEPLOYMENT_EVENT
+  exclusions:
+  - name: ''
+    deployment:
+      name: ''
+      scope:
+        cluster: ''
+        namespace: ^kube.*|^openshift.*|^redhat.*|^istio.*|^rhacs-operator.*|^stackrox.*
+        label: null
+    image: null
+    expiration: null
+  severity: CRITICAL_SEVERITY
+  notifiers:
+  - 6fba967b-b988-4a7e-a1c4-b324ece4408b
+  - 086b31cd-ddb5-4d9a-879f-e92b05dd71a8
+  - a9c588fe-ec1a-4f4e-b4e1-77d0a5f36750
+  - bf93bf14-35c6-42b0-9645-935e0fb5f6bb
+  policySections:
+  - sectionName: Rule 1
+    policyGroups:
+    - fieldName: Process UID
+      booleanOperator: OR
+      negate: false
+      values:
+      - value: '0'
+  scope:
+  - cluster: 3fee7bc8-57a3-4b7a-b56f-144b4181ff93
+    namespace: ''
+    label: null
+  - cluster: d4788638-a935-457d-826d-6fe6ebf7fdab
+    namespace: ''
+    label: null
+  - cluster: dc2d5f6a-df88-4799-96a4-18680cba95cf
+    namespace: ''
+    label: null
+  - cluster: db3950eb-bd15-477d-87c2-983370e932b4
+    namespace: ''
+    label: null
+  - cluster: 1eabdff9-e0a6-43eb-8170-376fe7fc6252
+    namespace: ''
+    label: null
+  mitreAttackVectors:
+  - tactic: TA0002
+    techniques:
+    - T1609
+  criteriaLocked: false
+  mitreVectorsLocked: false
+  isDefault: false

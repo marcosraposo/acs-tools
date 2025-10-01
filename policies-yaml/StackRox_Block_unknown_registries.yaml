@@ -1,0 +1,90 @@
+kind: SecurityPolicy
+apiVersion: config.stackrox.io/v1alpha1
+metadata:
+  name: block-unknown-registries
+spec:
+  policyName: Block unknown registries
+  description: "Esta pol\xEDtica foi implementada para garantir maior seguran\xE7\
+    a no ambiente, promovendo o bloqueio de registries n\xE3o autorizados pela CASSI.\
+    \ Ao restringir o acesso apenas a registries previamente aprovados, buscamos prevenir\
+    \ o uso de imagens n\xE3o confi\xE1veis, reduzir vulnerabilidades, mitigar riscos\
+    \ de ataques cibern\xE9ticos e assegurar a conformidade com os padr\xF5es internos\
+    \ de seguran\xE7a da informa\xE7\xE3o. Essa pr\xE1tica fortalece a prote\xE7\xE3\
+    o do ambiente corporativo e contribui para a integridade e confiabilidade das\
+    \ opera\xE7\xF5es."
+  rationale: "Uma pol\xEDtica de bloqueio de registries n\xE3o autorizados existe\
+    \ para proteger o ambiente corporativo contra amea\xE7as de seguran\xE7a e garantir\
+    \ a conformidade com os padr\xF5es estabelecidos pela organiza\xE7\xE3o. Registries\
+    \ s\xE3o reposit\xF3rios que armazenam imagens de cont\xEAineres, e o uso de fontes\
+    \ n\xE3o autorizadas pode introduzir vulnerabilidades, como malware, configura\xE7\
+    \xF5es inseguras ou software desatualizado.\n\nAo implementar essa pol\xEDtica,\
+    \ a organiza\xE7\xE3o limita o acesso a registries confi\xE1veis e previamente\
+    \ validados, reduzindo o risco de incidentes de seguran\xE7a, como invas\xF5es,\
+    \ roubo de dados ou interrup\xE7\xF5es operacionais. Al\xE9m disso, essa medida\
+    \ assegura que todas as imagens utilizadas estejam alinhadas com os requisitos\
+    \ internos de qualidade, desempenho e compliance, fortalecendo a postura de seguran\xE7\
+    a e integridade do ambiente tecnol\xF3gico."
+  remediation: "Recomendamos que voc\xEA entre em contato com o time de seguran\xE7\
+    a para obter a lista atualizada de registries autorizados pela CASSI. Essa consulta\
+    \ \xE9 essencial para garantir a conformidade com as pol\xEDticas de seguran\xE7\
+    a e evitar o uso de fontes n\xE3o aprovadas, que podem comprometer a integridade\
+    \ e a seguran\xE7a do ambiente corporativo."
+  categories:
+  - Vulnerability Management
+  - atipe
+  disabled: false
+  lifecycleStages:
+  - BUILD
+  - DEPLOY
+  eventSource: NOT_APPLICABLE
+  exclusions:
+  - name: ''
+    deployment:
+      name: ''
+      scope:
+        cluster: ''
+        namespace: ^kube.*|^openshift.*|^redhat.*|^istio.*|^rhacs-operator.*|^stackrox.*
+        label: null
+    image: null
+    expiration: null
+  severity: CRITICAL_SEVERITY
+  notifiers:
+  - 6fba967b-b988-4a7e-a1c4-b324ece4408b
+  - 086b31cd-ddb5-4d9a-879f-e92b05dd71a8
+  - a9c588fe-ec1a-4f4e-b4e1-77d0a5f36750
+  - bf93bf14-35c6-42b0-9645-935e0fb5f6bb
+  policySections:
+  - sectionName: Registry unknown
+    policyGroups:
+    - fieldName: Image Registry
+      booleanOperator: OR
+      negate: true
+      values:
+      - value: quay.io
+      - value: nexus-docker.cassi.com.br
+      - value: registry-quay-image.apps.gmt.cassi.com.br
+      - value: image-registry.openshift-image-registry.svc:5000
+      - value: registry.connet.redhat.com
+      - value: wrm20770.live.dynatrace.com
+      - value: ays70047.live.dynatrace.com
+      - value: registry.redhat.io
+  - sectionName: You cant use tag latest
+    policyGroups:
+    - fieldName: Image Tag
+      booleanOperator: OR
+      negate: false
+      values:
+      - value: latest
+  scope:
+  - cluster: 1bddd820-f647-466d-8b78-2506ad8140ed
+    namespace: ''
+    label: null
+  mitreAttackVectors:
+  - tactic: TA0042
+    techniques:
+    - T1588.006
+    - T1587.004
+    - T1587.001
+  criteriaLocked: false
+  mitreVectorsLocked: false
+  isDefault: false

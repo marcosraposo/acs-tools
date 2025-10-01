@@ -1,0 +1,44 @@
+kind: SecurityPolicy
+apiVersion: config.stackrox.io/v1alpha1
+metadata:
+  name: 30-day-scan-age-malima
+spec:
+  policyName: 30-Day Scan Age MALIMA
+  description: Alert on deployments with images that haven't been scanned in 30 days
+  rationale: Out-of-date scans may not identify the most recent CVEs.
+  remediation: Integrate a scanner with the StackRox Kubernetes Security Platform
+    to trigger scans automatically.
+  categories:
+  - Atipe
+  - Security Best Practices
+  - Supply Chain Security
+  disabled: false
+  lifecycleStages:
+  - DEPLOY
+  eventSource: NOT_APPLICABLE
+  exclusions:
+  - name: ''
+    deployment:
+      name: ''
+      scope:
+        cluster: 1bddd820-f647-466d-8b78-2506ad8140ed
+        namespace: ^kube.*|^openshift.*|^redhat.*|^istio.*|^rhacs-operator.*|^stackrox.*
+        label: null
+    image: null
+    expiration: null
+  severity: MEDIUM_SEVERITY
+  notifiers:
+  - d8de3118-6f77-4a09-bed2-f8d86b732fd1
+  policySections:
+  - sectionName: ''
+    policyGroups:
+    - fieldName: Image Scan Age
+      booleanOperator: OR
+      negate: false
+      values:
+      - value: '30'
+  scope: []
+  mitreAttackVectors: []
+  criteriaLocked: false
+  mitreVectorsLocked: false
+  isDefault: false
