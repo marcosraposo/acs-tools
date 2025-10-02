@@ -5,7 +5,7 @@ metadata:
 spec:
   policyName: Block unknown registries
   description: "Esta pol\xEDtica foi implementada para garantir maior seguran\xE7\
-    a no ambiente, promovendo o bloqueio de registries n\xE3o autorizados pela CASSI.\
+    a no ambiente, promovendo o bloqueio de registries n\xE3o autorizados pela ATI.\
     \ Ao restringir o acesso apenas a registries previamente aprovados, buscamos prevenir\
     \ o uso de imagens n\xE3o confi\xE1veis, reduzir vulnerabilidades, mitigar riscos\
     \ de ataques cibern\xE9ticos e assegurar a conformidade com os padr\xF5es internos\
@@ -25,7 +25,7 @@ spec:
     \ internos de qualidade, desempenho e compliance, fortalecendo a postura de seguran\xE7\
     a e integridade do ambiente tecnol\xF3gico."
   remediation: "Recomendamos que voc\xEA entre em contato com o time de seguran\xE7\
-    a para obter a lista atualizada de registries autorizados pela CASSI. Essa consulta\
+    a para obter a lista atualizada de registries autorizados pela ATI. Essa consulta\
     \ \xE9 essencial para garantir a conformidade com as pol\xEDticas de seguran\xE7\
     a e evitar o uso de fontes n\xE3o aprovadas, que podem comprometer a integridade\
     \ e a seguran\xE7a do ambiente corporativo."
@@ -59,8 +59,8 @@ spec:
       negate: true
       values:
       - value: quay.io
-      - value: nexus-docker.cassi.com.br
-      - value: registry-quay-image.apps.gmt.cassi.com.br
+      - value: nexus-docker.ati.pe.gov.br
+      - value: registry-quay-image.apps.gmt.ati.pe.gov.br
       - value: image-registry.openshift-image-registry.svc:5000
       - value: registry.connet.redhat.com
       - value: wrm20770.live.dynatrace.com

@@ -11,7 +11,7 @@ spec:
     this was legitimate trouble-shooting or malicious activity.
   categories:
   - Anomalous Activity
-  - Cassi
+  - Atipe
   disabled: false
   lifecycleStages:
   - RUNTIME

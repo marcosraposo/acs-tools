@@ -13,7 +13,7 @@ spec:
   categories:
   - Docker CIS
   - Privileges
-  - Cassi
+  - Atipe
   disabled: false
   lifecycleStages:
   - DEPLOY

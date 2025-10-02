@@ -10,7 +10,7 @@ spec:
     from the image build for production containers.
   categories:
   - Security Best Practices
-  - Cassi
+  - Atipe
   disabled: false
   lifecycleStages:
   - RUNTIME

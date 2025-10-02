@@ -17,7 +17,7 @@ spec:
   remediation: Specify the USER instruction in the Docker image or the runAsUser field
     within the Pod Security Context
   categories:
-  - Cassi
+  - Atipe
   - Vulnerability Management
   disabled: false
   lifecycleStages:
