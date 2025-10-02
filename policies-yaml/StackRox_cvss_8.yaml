@@ -38,7 +38,6 @@ spec:
   severity: CRITICAL_SEVERITY
   notifiers:
   - 40c72e28-283a-426a-ba56-e749c0847303
-  - d8de3118-6f77-4a09-bed2-f8d86b732fd1
   policySections:
   - sectionName: Rule 1
     policyGroups:
